@@ -19,15 +19,15 @@ form.addEventListener('submit', (e) => {
 	const newTask = {
 		id: performance.now(),
 		title: input.value,
-		createAt: new Date(),
+		createdAt: new Date(),
 	};
 	//input요소 값을 비우고
 	input.value = '';
-	//순간적으로 ul안쪽의 기존 목록을 모두 지우고(안그럼 기존 목록까지 같이 출력됨)
-	list.innerHTML = '';
 
 	//기존 배열에 할일 객체목록 추가, 새로운 목록이 위로 올라오도록 전개연산자 사용
 	tasks = [newTask, ...tasks];
+	//순간적으로 ul안쪽의 기존 목록을 모두 지우고(안그럼 기존 목록까지 같이 출력됨)
+	list.innerHTML = '';
 	//새로운 객체가 만들어지면 저장소에 데이터를 집어넣고
 	localStorage.setItem('TASKS', JSON.stringify(tasks));
 	//tasks에 있는 배열값을 반복돌면서 목록 생성
