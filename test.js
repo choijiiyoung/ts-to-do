@@ -20,9 +20,8 @@ form.addEventListener('submit', (e) => {
 	//input요소 값을 비우고
 	input.value = '';
 
-	//기존 배열에 할일 객체목록 추가
-	tasks.push(newTask);
-	console.log(tasks);
+	//기존 배열에 할일 객체목록 추가, 새로운 목록이 위로 올라오도록 전개연산자 사용
+	tasks = [newTask, ...tasks];
 
 	//순간적으로 ul안쪽의 기존 목록을 모두 지우고
 	list.innerHTML = '';
@@ -37,6 +36,13 @@ function addListItem(task) {
 	const checkbox = document.createElement('input');
 	//input노드에 checkbox타입 설정
 	checkbox.type = 'checkbox';
+	//동적으로 생성되는 checkbox요소에 아예 이벤트핸들러까지 연결해서 생성
+	//이벤트위임을 하지 않아도 동적인 요소에 이벤트 연결하는 방법
+	checkbox.addEventListener('change', () => {
+		task.complete = checkbox.checked;
+		console.log(tasks);
+	});
+
 	//li노드에 자식으로 checkbox, 인수로 받은 객체의 할일내용 추가
 	item.append(checkbox, task.title);
 	//완성된 li노드를  ul안에 추가
