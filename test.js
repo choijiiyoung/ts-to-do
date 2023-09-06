@@ -12,5 +12,5 @@ form.addEventListener('submit', (e) => {
 		createAt: new Date(),
 	};
 
-	console.log(newTask);
+	// console.log(newTask);
 });
