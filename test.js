@@ -42,9 +42,12 @@ function addListItem(task) {
 	//li, input 엘리먼트 노드 생성
 	const item = document.createElement('li');
 	const checkbox = document.createElement('input');
-
 	//input노드에 checkbox타입 설정
 	checkbox.type = 'checkbox';
+	//동적인 목록이 추가된 상태에서 change이벤트가 발생하지 않고 바로 새로고침되었을때 checked유무에 따라 속성, 스타일 변경
+	checkbox.checked = task.complete ? true : false;
+	item.style.textDecoration = task.complete ? 'line-through' : 'none';
+
 	//동적으로 생성되는 checkbox요소에 아예 이벤트핸들러까지 연결해서 생성
 	//이벤트위임을 하지 않아도 동적인 요소에 이벤트 연결하는 방법
 	checkbox.addEventListener('change', () => {
