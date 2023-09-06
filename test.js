@@ -59,6 +59,6 @@ function addListItem(task) {
 	});
 	//li노드에 자식으로 checkbox, 인수로 받은 객체의 할일내용 추가
 	item.append(checkbox, task.title);
-	//완성된 li노드를  ul안에 추가
+	//완성된 li노드를 ul안에 추가
 	list.append(item);
 }
