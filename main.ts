@@ -60,7 +60,8 @@ function addListItem(task: Task) {
 		//동적으로 생긴 checkbox요소에 change이벤트가 발생할때마다 다시 변경점을 로컬저장소에 저장
 		localStorage.setItem('TASKS', JSON.stringify(tasks));
 	});
-	//li노드에 자식으로 checkbox, 인수로 받은 객체의 할일내용 추가
+
+	//item은 dom이 아닌 change 이벤트와 관련되므르 ?를 붙이지 않는것
 	item.append(checkbox, task.title);
 	//완성된 li노드를 ul안에 추가
 	list?.append(item);
