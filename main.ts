@@ -36,7 +36,7 @@ form?.addEventListener('submit', (e) => {
 
 	//새로운 객체가 만들어지면 저장소에 데이터를 집어넣고
 	localStorage.setItem('TASKS', JSON.stringify(tasks));
-	//tasks에 있는 배열값을 반복돌면서 목록 생성
+	//map으로 반복도는 배열자체에 Task타입의 배열로 지정했기 때문에 굳이 map파라미터에 타입지정 불필요
 	tasks.map((task) => addListItem(task));
 });
 

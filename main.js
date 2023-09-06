@@ -26,7 +26,7 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', (e) 
     list && (list.innerHTML = '');
     //새로운 객체가 만들어지면 저장소에 데이터를 집어넣고
     localStorage.setItem('TASKS', JSON.stringify(tasks));
-    //tasks에 있는 배열값을 반복돌면서 목록 생성
+    //map으로 반복도는 배열자체에 Task타입의 배열로 지정했기 때문에 굳이 map파라미터에 타입지정 불필요
     tasks.map((task) => addListItem(task));
 });
 //해당함수의 파라미터에 넘어가는것이 객체이므로 해당 객체에 대한 interface타입 지정
