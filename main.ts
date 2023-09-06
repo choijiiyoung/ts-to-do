@@ -15,28 +15,24 @@ const list = document.querySelector<HTMLUListElement>('#list');
 //localStoraged에 null값이 반환되는 순간 배열을 문자화해서 대신 들어가도록 하면
 //parse메서드 안쪽에는 문자값이 인수로 전달되서 오류를 피할 수 있음
 let tasks: Task[] = JSON.parse(localStorage.getItem('TASKS') || '[]');
-//tasks.map((task) => addListItem(task));
+tasks.map((task) => addListItem(task));
 
 //해당 변수는 처음 스크립트가 로드될때 아직 DOM이 담기지 않았기 때문에 초기에 undefined가 들어감
 //form타입을 HTML노드 형태로 지정했기 때문에 해당 값이 없을때에는 무시하고 넘어가도록 optional changing처리
 form?.addEventListener('submit', (e) => {
 	e.preventDefault();
 
-	//input요소에 값이 없으면 경고창 출력
 	if (input?.value.trim() === '') return alert('할일을 입력하세요.');
-
-	//값이 있으면 객체에 id, title, 현재시간을 객체로 저장
 	const newTask: Task = {
 		id: performance.now(),
 		title: input?.value || '',
 		createdAt: new Date(),
 	};
-	//input요소 값을 비우고
-	input?.value = '';
-	//기존 배열에 할일 객체목록 추가, 새로운 목록이 위로 올라오도록 전개연산자 사용
+	//input?.value = ''; 해당구문은 옵셔널 체이닝과 대입연산자를 하나의 표현식으로 처리 불가능하기 때문에
+	//아래와 같이 코드 변경
+	input && (input.value = '');
 	tasks = [newTask, ...tasks];
-	//순간적으로 ul안쪽의 기존 목록을 모두 지우고(안그럼 기존 목록까지 같이 출력됨)
-	list?.innerHTML = '';
+	list && (list.innerHTML = '');
 
 	//새로운 객체가 만들어지면 저장소에 데이터를 집어넣고
 	localStorage.setItem('TASKS', JSON.stringify(tasks));
