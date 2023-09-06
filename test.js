@@ -3,10 +3,8 @@ const input = document.querySelector('#title');
 const list = document.querySelector('#list');
 
 //처음 페이지 로딩시 로컬 저장소에서 TASKS에 대한 데이터호출
-let data = localStorage.getItem('TASKS');
 //해당 데이터가 있으면 parsing 해서 tasks배열에 저장, 없으면 빈배열 저장
-let tasks = data ? JSON.parse(data) : [];
-
+let tasks = JSON.parse(localStorage.getItem('TASKS')) || [];
 //tasks에 배열값을 반복출력 (만약 저장소에 값이없으면 출력안됨)
 tasks.map((task) => addListItem(task));
 
