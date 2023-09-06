@@ -1,10 +1,16 @@
 const form = document.querySelector('#form');
 const input = document.querySelector('#title');
 const list = document.querySelector('#list');
-//할일목록이 저장된 배열 생성
-let tasks = [];
 
-//폼요소에 submit이벤트 연결
+//처음 페이지 로딩시 로컬 저장소에서 TASKS에 대한 데이터호출
+let data = localStorage.getItem('TASKS');
+//해당 데이터가 있으면 parsing 해서 tasks배열에 저장, 없으면 빈배열 저장
+let tasks = data ? JSON.parse(data) : [];
+
+//tasks에 배열값을 반복출력 (만약 저장소에 값이없으면 출력안됨)
+tasks.map((task) => addListItem(task));
+
+//Submit이벤트가 발생할때마다
 form.addEventListener('submit', (e) => {
 	e.preventDefault();
 
@@ -23,9 +29,11 @@ form.addEventListener('submit', (e) => {
 	//기존 배열에 할일 객체목록 추가, 새로운 목록이 위로 올라오도록 전개연산자 사용
 	tasks = [newTask, ...tasks];
 
-	//순간적으로 ul안쪽의 기존 목록을 모두 지우고
+	//순간적으로 ul안쪽의 기존 목록을 모두 지우고(안그럼 기존 목록까지 같이 출력됨)
 	list.innerHTML = '';
-	//배열의 목록을 반복돌면서 새로운 리스트 생성
+	//새로운 객체가 만들어지면 저장소에 데이터를 집어넣고
+	localStorage.setItem('TASKS', JSON.stringify(tasks));
+	//tasks에 있는 배열값을 반복돌면서 목록 생성
 	tasks.map((task) => addListItem(task));
 });
 
@@ -43,6 +51,8 @@ function addListItem(task) {
 		task.complete = checkbox.checked;
 		//change이벤트가 발생할때마다 해당객체의 complete값이 true면 line-through적용 그렇지 않으면 미적용
 		item.style.textDecoration = task.complete ? 'line-through' : 'none';
+		//동적으로 생긴 checkbox요소에 change이벤트가 발생할때마다 다시 변경점을 로컬저장소에 저장
+		localStorage.setItem('TASKS', JSON.stringify(tasks));
 	});
 	//li노드에 자식으로 checkbox, 인수로 받은 객체의 할일내용 추가
 	item.append(checkbox, task.title);
